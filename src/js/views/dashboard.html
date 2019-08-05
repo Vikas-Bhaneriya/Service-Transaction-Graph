@@ -1,0 +1,78 @@
+
+<div id="sampleDemo" style="" class="demo-padding demo-container">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+
+
+        <div id='chart-container'>
+
+            <br/>
+
+
+            <div>
+                <h2 style="text-align:center;width:40%;float:none;">Service Transcations</h2>
+
+                <oj-label for="skipGapsButtonset">
+                    Time Axis Type:
+                </oj-label>
+
+
+                <oj-button id="mixedFrequency" on-oj-action='[[buttonClick]]'>MixedFrequency</oj-button>
+                <oj-button id="skipGaps" on-oj-action='[[buttonClick]]'>
+                    <span><oj-bind-text value="SkipGaps"> </oj-bind-text></span>
+                </oj-button>
+                <p id="last" class="bold">Time Axis Type is :
+                    <span id="results"><oj-bind-text value="[[clickedButton]]"></oj-bind-text></span>
+                </p>
+
+            </div>
+
+                <oj-chart id="lineChart2"
+                          type="line"
+                          time-axis-type="mixedFrequency"
+                          data="[[dataProvider]]"
+                          animation-on-display="auto"
+                          animation-on-data-change="auto"
+                          hide-and-show-behavior="withRescale"
+                          x-axis.title="Time"
+                          y-axis.title="count"
+                          line-type="stepped"
+                          legend.max-size="25%" legend.position="bottom"
+                          style="  width:70%;height:400px;float:none;"
+                >
+
+                    <template slot="itemTemplate" data-oj-as="item">
+                        <oj-chart-item
+                                x="[[item.data['transactionRequestDateTime']]]"
+                                value="[[item.data['count']]]"
+                                series-id="[[item.data.serviceType]]"
+                                group-id="[[ [item.data['transactionRequestDateTime']] ]]"
+                   >
+
+                        </oj-chart-item>
+
+                    </template>
+                    <!--   -->
+                    <template slot="seriesTemplate" data-oj-as="series">
+                        <oj-chart-series
+                                line-type="stepped"
+                                line-width="1.5"
+                                marker-displayed="on"
+                                marker-shape="square"
+                                marker-size="6"
+                                market-color="blue"
+
+                        >
+
+                        </oj-chart-series>
+                    </template>
+
+
+                </oj-chart>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
