@@ -15,7 +15,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'text!Data/dat
             var offset = new Date().getTimezoneOffset();
             // to make the system clock sink with the ISO date time formate, offset is taken
 
-            var BackDateTime = new Date(currentDateTime.getTime() - 42 * 24 * 60 * 60 * 1000);
+            var BackDateTime = new Date(currentDateTime.getTime() - 43 * 24 * 60 * 60 * 1000);
             // the above line code will be changed
             // moved 38 days back so that the given data can be used (25 jun 2019)
             // we need to move 6 hours back as such
