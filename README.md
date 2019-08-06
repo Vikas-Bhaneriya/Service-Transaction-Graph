@@ -13,10 +13,18 @@ clone the project using:
 move into the project directory and the use 
 
 > npm install 
+
 to install the o-jet dependencies
-build the project using 
+
+
 
 > ojet build
+
+to build the project using
+
+
 > ojet serve 
+
+
 to run the application on localhost:8000
 
