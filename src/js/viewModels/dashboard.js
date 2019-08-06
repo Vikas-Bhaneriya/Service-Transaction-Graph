@@ -12,9 +12,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'text!Data/dat
             }.bind(self);
 
             var currentDateTime = new Date();
-            var offset = new Date().getTimezoneOffset();
-            // to make the system clock sink with the ISO date time formate, offset is taken
-
+     
             var BackDateTime = new Date(currentDateTime.getTime() - 43 * 24 * 60 * 60 * 1000);
             // the above line code will be changed
             // moved 38 days back so that the given data can be used (25 jun 2019)
@@ -22,29 +20,24 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'text!Data/dat
             // if we want time to start from p hour back then put (p* 60 * 60 * 1000) in place  (39 * 24 * 60 * 60 * 1000)
             // (39 * 24 * 60 * 60 * 1000)milliseconds will be replaced with (6 * 60 * 60 * 1000)milliseconds to move 6 hours back
 
+           
             var _data = JSON.parse(quarterData);
             var modData = [];
 
-
-               
             for (i = 0; _data[i]; i++) {
 
-                var d = new Date(Date.parse(BackDateTime) + offset * 60 * 1000);
                 modData.push({
 
                     'serviceType': _data[i]['serviceType'],
                     'count': 0,
-                    'transactionRequestDateTime': d.toISOString()
+                    'transactionRequestDateTime': BackDateTime.toISOString()
                 });
                 for (j = 0; _data[i]['transactions'][j]; j++) {
                     if (Date.parse(_data[i]['transactions'][j]['transactionRequestDateTime']) > Date.parse(BackDateTime)) {
-
-                        var da = new Date(Date.parse(_data[i]['transactions'][j]['transactionRequestDateTime']) + offset * 60 * 1000);
-                        // to remove the time dependency of machine
                         modData.push({
                             'serviceType': _data[i]['serviceType'],
                             'count': _data[i]['transactions'][j]['count'],
-                            'transactionRequestDateTime': da.toISOString()
+                            'transactionRequestDateTime': _data[i]['transactions'][j]['transactionRequestDateTime']
                         });
 
                     }
