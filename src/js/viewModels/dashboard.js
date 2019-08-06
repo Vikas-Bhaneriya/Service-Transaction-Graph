@@ -26,16 +26,18 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'text!Data/dat
             var modData = [];
 
 
+               
             for (i = 0; _data[i]; i++) {
+
+                var d = new Date(Date.parse(BackDateTime) + offset * 60 * 1000);
                 modData.push({
+
                     'serviceType': _data[i]['serviceType'],
                     'count': 0,
-                    'transactionRequestDateTime': BackDateTime.toISOString()
+                    'transactionRequestDateTime': d.toISOString()
                 });
-
-
                 for (j = 0; _data[i]['transactions'][j]; j++) {
-                    if (_data[i]['transactions'][j]['transactionRequestDateTime'] > BackDateTime.toISOString()) {
+                    if (Date.parse(_data[i]['transactions'][j]['transactionRequestDateTime']) > Date.parse(BackDateTime)) {
 
                         var da = new Date(Date.parse(_data[i]['transactions'][j]['transactionRequestDateTime']) + offset * 60 * 1000);
                         // to remove the time dependency of machine
