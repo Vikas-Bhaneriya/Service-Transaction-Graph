@@ -18,7 +18,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'text!Data/dat
             }.bind(self);
 
             var currentDateTime = new Date();
-            var BackDateTime = new Date(Date.parse(currentDateTime) -  6*60*60*1000 );
+            var BackDateTime = new Date(Date.parse(currentDateTime) -  43*24*60*60*1000 );
 
             console.log("currennt Time: " + currentDateTime.toISOString());
             console.log("Before Time: " + BackDateTime.toISOString());
