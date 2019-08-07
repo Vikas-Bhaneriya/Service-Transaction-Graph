@@ -1,3 +1,10 @@
+// moved 43 days back so that the given data can be used (25 jun 2019)
+ // we need to move 6 hours back as such
+// if we want time to start from p hour back then put (p* 60 * 60 * 1000) in place  (43 * 24 * 60 * 60 * 1000)
+// (43 * 24 * 60 * 60 * 1000)milliseconds will be replaced with (6 * 60 * 60 * 1000)milliseconds to move 6 hours back
+// Graph plot will be shown after 5:30 hours of the local clock when compared with the .Json ISO DateTime format
+//line #21
+
 define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'text!Data/data.json',
         'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojchart', 'ojs/ojbutton'],
     function (ko, Bootstrap, ArrayDataProvider, ServerData) {
@@ -11,37 +18,28 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'text!Data/dat
             }.bind(self);
 
             var currentDateTime = new Date();
-            var offset = new Date().getTimezoneOffset()
-            var BackDateTime = new Date(Date.parse(currentDateTime) - 43*24* 60 * 60 * 1000 - offset*60*1000);
+            var BackDateTime = new Date(Date.parse(currentDateTime) -  6*60*60*1000 );
 
-            // the above line code will be changed
-            // moved 43 days back so that the given data can be used (25 jun 2019)
-            // we need to move 6 hours back as such
-            // if we want time to start from p hour back then put (p* 60 * 60 * 1000) in place  (43 * 24 * 60 * 60 * 1000)
-            // (43 * 24 * 60 * 60 * 1000)milliseconds will be replaced with (6 * 60 * 60 * 1000)milliseconds to move 6 hours back
+            console.log("currennt Time: " + currentDateTime.toISOString());
+            console.log("Before Time: " + BackDateTime.toISOString());
 
             var _data = JSON.parse(ServerData);
             var modData = [];
             for (i = 0; _data[i]; i++) {
 
-                 var daAfterOffset= new Date(BackDateTime.getTime()+ offset*60*1000);
-
                 modData.push({
-
                     'serviceType': _data[i]['serviceType'],
                     'count': 0,
-                    'transactionRequestDateTime': daAfterOffset.toISOString()
+                    'transactionRequestDateTime': BackDateTime.toISOString()
                 });
                 for (j = 0; _data[i]['transactions'][j]; j++) {
 
-                    var dateAfetrOffset= new Date(Date.parse(_data[i]['transactions'][j]['transactionRequestDateTime']) + offset*60*1000);
-
-                    if (Date.parse(_data[i]['transactions'][j]['transactionRequestDateTime']) > Date.parse(BackDateTime)) {
-
+                    var x=Date.parse(_data[i]['transactions'][j]['transactionRequestDateTime']);
+                    if (x >= Date.parse(BackDateTime)&& x <= Date.parse(currentDateTime)) {
                         modData.push({
                             'serviceType': _data[i]['serviceType'],
                             'count': _data[i]['transactions'][j]['count'],
-                            'transactionRequestDateTime': dateAfetrOffset.toISOString()
+                            'transactionRequestDateTime': _data[i]['transactions'][j]['transactionRequestDateTime']
                         });
 
                     }
