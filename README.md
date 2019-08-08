@@ -10,7 +10,7 @@ clone the project using:
 
 > git clone git@github.com:Vikas-Bhaneriya/Service-Transaction-Graph.git
 
-move into the project directory and the use 
+move into the project directory and then use 
 
 > npm install 
 
